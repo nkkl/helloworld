@@ -1,5 +1,25 @@
 <% for post in @posts %>
 	<div class="post">
 		<%= post.body %>
+		<a href="https://twitter.com/share?url=<%= post_url(post) %>" class="twitter-share-button" data-lang="en">Tweet</a>
 	</div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+	// First, load the widgets.js file asynchronously 
+	window.twttr = (function (d,s,id) {
+		var t, js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+		js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+		return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+	}(document, "script", "twitter-wjs"));
+ 
+	// Wait for the asynchronous resources to load
+	twttr.ready(function (twttr) {
+		// Now bind our custom intent events
+		twttr.events.bind("click", function(intent_event) {
+			// bind a tweet-button-click action to a callback
+			console.log(intent_event.target)
+		});
+	});
+</script>
