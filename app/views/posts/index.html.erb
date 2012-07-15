@@ -1,7 +1,7 @@
 <% for post in @posts %>
 	<div class="post">
 		<%= post.body %>
-		<a href="https://twitter.com/share?url=<%= post_url(post) %>" class="twitter-share-button" data-lang="en">Tweet</a>
+		<a href="https://twitter.com/share?url=<%= post_url(post) %>" class="twitter-share-button" data-lang="en" data-post-id="<%= post.id %>">Tweet</a>
 	</div>
 <% end %>
 
