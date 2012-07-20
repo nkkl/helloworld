@@ -1,13 +1,21 @@
-<% for post in @posts %>
-	<div class="post" data-post-id="<%= post.id %>">
-		<div class="post-body">
-			<%= simple_format(post.body) %>
-		</div>
-		<div class="post-actions">
-			<%= post.votes %> <%= post.flagged %> <a class="flag">flag</a> <a href="https://twitter.com/share?url=<%= post_url(post) %>" class="twitter-share-button" data-lang="en">Tweet</a>
-		</div>
+<div id="wrapper">
+	<div id="column-left">
+		Questions go here
 	</div>
-<% end %>
+
+	<div id="column-right">
+		<% for post in @posts %>
+			<div class="post" data-post-id="<%= post.id %>">
+				<div class="post-body">
+					<%= simple_format(post.body) %>
+				</div>
+				<div class="post-actions">
+					<%= post.votes %> <%= post.flagged %> <a class="flag">flag</a> <a href="https://twitter.com/share?url=<%= post_url(post) %>" class="twitter-share-button" data-lang="en">Tweet</a>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>
 
 <script type="text/javascript" charset="utf-8">
 	// First, load the widgets.js file asynchronously 

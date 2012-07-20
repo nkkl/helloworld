@@ -5,15 +5,18 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <div id="header">
-	This will be a header
+	<div>
+		<%= link_to "read", :controller => "posts", :action => "index" %>
+		<%= link_to "write", :controller => "posts", :action => "new" %>
+		<%= link_to "about", :controller => "posts", :action => "about" %>
+	</div>
 </div>
 
-<div id="content">
-	<%= yield %>
-</div>
+<%= yield %>
 
 </body>
 </html>
