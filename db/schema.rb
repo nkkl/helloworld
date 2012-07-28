@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20120715220130) do
 
   create_table "posts", :force => true do |t|
-    t.string   "body"
+    t.text     "body"
     t.integer  "votes"
     t.integer  "flagged"
     t.datetime "created_at", :null => false
