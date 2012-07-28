@@ -15,7 +15,7 @@
 				</div>
 
 				<div class="post-actions">
-					<div class="flag">flag</div> <a href="https://twitter.com/share?url=<%= post_url(post) %>" class="twitter-share-button" data-lang="en">Tweet</a>
+					<div class="flag">flag</div> <a href="https://twitter.com/share?url=<%= post_url(post) %>" class="twitter-share-button" data-text=" " data-lang="en">Tweet</a>
 				</div>
 			</div>
 		<% end %>
@@ -34,7 +34,7 @@
 	// Wait for the asynchronous resources to load
 	twttr.ready(function (twttr) {
 		// bind a tweet-button-click action to a callback
-		twttr.events.bind("click", function(intent_event) {
+		twttr.events.bind("tweet", function(intent_event) {
 			// grab the post ID from the intent_event
 			var id = $(intent_event.target).parent().parent().attr("data-post-id");
 			// use AJAX to hit the posts_url with a PUT request
