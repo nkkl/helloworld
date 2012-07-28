@@ -1,6 +1,6 @@
 <div id="wrapper">
 	<div id="column-left">
-		Questions go here
+		What are your thoughts on high "getting started" costs as a barrier to learning programming?
 	</div>
 
 	<div id="column-right">
@@ -9,8 +9,13 @@
 				<div class="post-body">
 					<%= simple_format(post.body) %>
 				</div>
+
+				<div class="post-date">
+					Created on <%= localize(post.created_at, :format => :long) %>
+				</div>
+
 				<div class="post-actions">
-					<%= post.votes %> <%= post.flagged %> <a class="flag">flag</a> <a href="https://twitter.com/share?url=<%= post_url(post) %>" class="twitter-share-button" data-lang="en">Tweet</a>
+					<div class="flag">flag</div> <a href="https://twitter.com/share?url=<%= post_url(post) %>" class="twitter-share-button" data-lang="en">Tweet</a>
 				</div>
 			</div>
 		<% end %>
@@ -38,20 +43,21 @@
 				data: { "tweet": true,
 						"flagged": false }
 			}).done(function() {
-				console.log("posted");
 			});
 		});
 	});
 
-	$("a.flag").click(function() {
-		var id = $(this).parent().parent().attr("data-post-id");
-		console.log(id)
-		$.ajax("<%= posts_url %>" + id, {
-				type: "PUT",
-				data: { "tweet": false,
-						"flagged": true }
-			}).done(function() {
-				console.log("flagged");
-			});
+	$(".flag").click(function() {
+		if ($(this).hasClass("clicked")) {
+			$(this).toggleClass("clicked");
+			var id = $(this).parent().parent().attr("data-post-id");
+			$.ajax("<%= posts_url %>" + id, {
+					type: "PUT",
+					data: { "tweet": false,
+							"flagged": true }
+				}).done(function() {});
+		} else {
+			$(this).toggleClass("clicked");
+		}
 	});
 </script>

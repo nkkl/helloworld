@@ -1,10 +1,14 @@
 class PostsController < ApplicationController
 	def index
-		@posts = Post.all
+		order = params[:sort]
+		order = 'created_at' if order != 'votes'
+		@posts = Post.find(:all, :order => order + ' DESC')
+		@title = "Hello, world"
 	end
 
 	def new
 		@post = Post.new
+		@title = "Hello, world - write"
 	end
 
 	def create
@@ -49,5 +53,6 @@ class PostsController < ApplicationController
 	end
 
 	def about
+		@title = "Hello, world - about"
 	end
 end
