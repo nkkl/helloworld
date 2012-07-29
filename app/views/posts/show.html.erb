@@ -1,2 +1,60 @@
-<%= @post.body %>
-<%= link_to "back", posts_url %>
+<div id="wrapper">
+	<div id="column-left">
+		What are your thoughts on high "getting started" costs as a barrier to learning programming?
+	</div>
+
+	<div id="column-right">
+		<div class="post-body">
+			<%= simple_format(@post.body) %>
+		</div>
+
+		<div class="post-date">
+			Written on <%= localize(@post.created_at, :format => :long) %><br>
+			<%= link_to "« back", posts_url %>
+		</div>
+
+		<div class="post-actions">
+			<div class="flag">flag</div> <a href="https://twitter.com/share?url=<%= post_url(@post) %>" class="twitter-share-button" data-text=" " data-lang="en">Tweet</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	// First, load the widgets.js file asynchronously 
+	window.twttr = (function (d,s,id) {
+		var t, js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+		js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+		return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+	}(document, "script", "twitter-wjs"));
+ 
+	// Wait for the asynchronous resources to load
+	twttr.ready(function (twttr) {
+		// bind a tweet-button-click action to a callback
+		twttr.events.bind("tweet", function(intent_event) {
+			// grab the post ID from the intent_event
+			var id = $(intent_event.target).parent().parent().attr("data-post-id");
+			// use AJAX to hit the posts_url with a PUT request
+			$.ajax("<%= posts_url %>" + id, {
+				type: "PUT",
+				data: { "tweet": true,
+						"flagged": false }
+			}).done(function() {
+			});
+		});
+	});
+
+	$(".flag").click(function() {
+		if ($(this).hasClass("clicked")) {
+			$(this).toggleClass("clicked");
+			var id = $(this).parent().parent().attr("data-post-id");
+			$.ajax("<%= posts_url %>" + id, {
+					type: "PUT",
+					data: { "tweet": false,
+							"flagged": true }
+				}).done(function() {});
+		} else {
+			$(this).toggleClass("clicked");
+		}
+	});
+</script>
